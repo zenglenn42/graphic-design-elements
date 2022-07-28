@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Accordion / Toggle</title>
+
+	<style>
+
+	body {
+		font-family: sans-serif;
+	}
+
+	p {
+		line-height: 1.4;
+	}
+
+	input.accordion-item-input {
+		display: none;
+	}
+
+	ul.accordion-items {
+		max-width: 70ch;
+	}
+
+	ul.accordion-items > li.accordion-item {
+		list-style-type: none;
+	}
+
+	ul.accordion-items > li.accordion-item:nth-child(4n-3) {
+		background-color: #809bce; /* blue */
+	}
+
+	ul.accordion-items > li.accordion-item:nth-child(4n-2) {
+		background-color: #95b8d1; /* gray */
+	}
+
+	ul.accordion-items > li.accordion-item:nth-child(4n-1) {
+		background-color: #b8e0d2; /* green */
+	}
+
+	ul.accordion-items > li.accordion-item:nth-child(4n) {
+		background-color: #d6eadf; /* tan */
+	}
+
+	label.accordion-item-label {
+		display: block;    
+		position: relative;
+		margin: 0 0 0.5rem 0;
+		cursor: pointer;
+		color: #404040;
+		max-width: inherit;
+		transition: ease 0.5s;
+	}
+
+	label.accordion-item-label:hover {
+		color: black;
+		border-top: 0.5rem solid black;
+		opacity: unset;
+		transition-delay: 0.2s;
+	}
+
+	label.accordion-item-label::after {
+		position: absolute;
+		right: 1rem;
+		top: 2rem;
+		content: '+';
+		font-size: 22px;
+		font-weight: bold;
+	}
+
+	input.accordion-item-input:checked + label.accordion-item-label::after {
+		content: '-';
+		right: 1rem;
+		top: 2rem;
+	}
+
+	input.accordion-item-input:checked + label.accordion-item-label {
+		color: black;
+		border-top: 0.5rem solid black;
+	}
+
+	div.accordion-item-content {
+		background-color: white;
+		padding: 1rem 1.5rem;
+		margin: -0.3rem 0 1rem 0;
+		border: .2px solid gray;
+		border-bottom-right-radius: 0.25rem;
+		border-bottom-left-radius:  0.25rem;
+	}
+
+	input.accordion-item-input + 
+	label.accordion-item-label + 
+	div.accordion-item-content {
+		display: none;
+	}
+
+	input.accordion-item-input:checked + 
+	label.accordion-item-label + 
+	div.accordion-item-content {
+		display: block;
+	}
+
+	div.accordion-item-content > p {
+		line-height: 1.5;
+	}
+
+	div.content-buttons {
+		display: flex;
+		flex-flow: row wrap;
+		justify-content: space-around;
+		align-items: center;
+		margin-top: 0.9rem;
+		margin-bottom: 1rem;
+	}
+
+	a.content-button {
+		padding: 0.5rem .8rem;
+		margin-top: 0.9rem;
+		border: 0.5px solid black;
+		text-decoration: none;
+		text-transform: uppercase;
+		font-family: 'SF Mono', SFMono-Regular, ui-monospace,
+			     'DejaVu Sans Mono', Menlo, Consolas, monospace;
+		font-size: 0.85rem;
+		text-align: center;
+	}
+
+	a.content-button:first-child {
+		margin-right: 1rem;
+	}
+
+	@media only screen and (max-width: 480px) {
+		div.content-buttons {
+			flex-flow: column nowrap;
+			justify-content: center;
+			align-items: center;
+			width: 95%;
+			margin: 0 auto;
+			margin-top: 1rem;
+		}
+
+		a.content-button:first-child {
+			margin-right: unset;
+		}
+
+		a.content-button {
+			margin-top: 1rem;
+			width: 100%;
+		}
+	}
+
+	a.first-button {
+		border-color: #579d42;
+		background-color: #579d42;
+		color: white;
+		transition: background-color ease 0.3s;
+	}
+
+	a.first-button:hover {
+		background-color: black;
+	}
+
+	a.second-button {
+		border-color: black;
+		background-color: #c0c0c0;
+		color: black;
+		transition: color,background-color ease 0.3s;
+	}
+
+	a.second-button:hover {
+		background-color: black;
+		color: white;
+	}
+
+        img.item-notes {
+		content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64' x='0px' y='0px'%3E%3Cg data-name='04 Psychology History'%3E%3Cg%3E%3Cpath d='M41,12H23a4,4,0,0,1-4-4V4a4,4,0,0,1,4-4H41a4,4,0,0,1,4,4V8A4,4,0,0,1,41,12ZM23,2a2,2,0,0,0-2,2V8a2,2,0,0,0,2,2H41a2,2,0,0,0,2-2V4a2,2,0,0,0-2-2Z'%3E%3C/path%3E%3Cpath d='M51,64H13a4,4,0,0,1-4-4V9a4,4,0,0,1,4-4h4a1,1,0,0,1,0,2H13a2,2,0,0,0-2,2V60a2,2,0,0,0,2,2H51a2,2,0,0,0,2-2V9a2,2,0,0,0-2-2H47a1,1,0,0,1,0-2h4a4,4,0,0,1,4,4V60A4,4,0,0,1,51,64Z'%3E%3C/path%3E%3Cpath d='M49,59H15a1,1,0,0,1-1-1V9a1,1,0,0,1,2,0V57H48V9a1,1,0,0,1,2,0V58A1,1,0,0,1,49,59Z'%3E%3C/path%3E%3Cpath d='M38,17a3,3,0,0,0-3,3v1a3,3,0,0,1-2,2.816V17a1,1,0,0,0,0-2H31a1,1,0,0,0,0,2v6.815A3,3,0,0,1,29,21V20a3,3,0,0,0-3-3,1,1,0,0,0,0,2,1,1,0,0,1,1,1v1a5.009,5.009,0,0,0,4,4.9V28a1,1,0,0,0,0,2h2a1,1,0,0,0,0-2V25.9A5.009,5.009,0,0,0,37,21V20a1,1,0,0,1,1-1,1,1,0,0,0,0-2Z'%3E%3C/path%3E%3Cpath d='M41,39H23a3,3,0,0,1-3-3V35a3,3,0,0,1,3-3H38a1,1,0,0,1,0,2H23a1,1,0,0,0-1,1v1a1,1,0,0,0,1,1H41a1,1,0,0,0,1-1V35a1,1,0,0,0-1-1,1,1,0,0,1,0-2,3,3,0,0,1,3,3v1A3,3,0,0,1,41,39Z'%3E%3C/path%3E%3Cpath d='M42,44H22a1,1,0,0,1,0-2H42a1,1,0,0,1,0,2Z'%3E%3C/path%3E%3Cpath d='M42,48H22a1,1,0,0,1,0-2H42a1,1,0,0,1,0,2Z'%3E%3C/path%3E%3Cpath d='M42,52H22a1,1,0,0,1,0-2H42a1,1,0,0,1,0,2Z'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+	.item-accordion-title {
+		display: flex;
+		flex-flow: nowrap row;
+		justify-content: flex-start;
+	}
+
+	.item-accordion-title img {
+		max-width: 2rem;
+		height: 4rem;
+		padding: 0 1rem;
+		margin: 1rem;
+		background-color: white;
+		border-radius: 50%;
+	}
+
+	.item-accordion-title p {
+		padding: 0;
+		padding-right: 3rem;
+		align-self: center;
+		line-height: 1.3;
+	}
+
+	</style>
+</head>
+<body>
+	<h3>accordion / toggle</h3>
+
+	<p>Here's a responsive, accordion-toggle.  Strictly speaking, it's a <em>toggle</em> 
+	since multiple items may be open at the same time. It's great as a clickable container 
+	for modestly sized content.
+	</p>
+
+	<p>
+	The buttons within the content areas are responsive as well, rendering sensibly even 
+	on small devices.
+	</p>
+
+	<ul class="accordion-items">
+		<li class="accordion-item">
+			<input class="accordion-item-input" type="checkbox" id="CB-item-1" />
+
+			<label class="accordion-item-label" for="CB-item-1">
+				<div class="item-accordion-title">
+					<img class="item-notes">
+					<p>
+					Compelling Title Regarding Hipsterism in Modern Society 
+					</p>
+				</div>
+			</label>
+
+			<div class="accordion-item-content">
+				<p>
+				Chia meggings freegan minim locavore venmo kickstarter hexagon 
+				brooklyn whatever veniam organic retro fixie distillery. Paleo 
+				esse truffaut incididunt.  Pug vexillologist anim, kogi etsy 
+				mumblecore lo-fi vape polaroid cardigan blue bottle hoodie. 
+				</p>
+
+				<p>
+				Literally before they sold out williamsburg kombucha incididunt 
+				thundercats YOLO gentrify banh mi duis direct trade umami scenester 
+				lyft kinfolk. 
+				</p>
+
+				<div class="content-buttons">
+					<a class="content-button first-button" 
+					   href="#">Road to Nowhere</a>
+					<a class="content-button second-button" 
+					   href="#">Order Craft Beer</a>
+				</div>
+			</div>
+		</li>
+
+		<li class="accordion-item">
+			<input class="accordion-item-input" type="checkbox" id="CB-item-2" />
+
+			<label class="accordion-item-label" for="CB-item-2">
+				<div class="item-accordion-title">
+					<img class="item-notes"/>
+					<p>I Really Should Read Pride and Prejudice</p>
+				</div>
+			</label>
+
+			<div class="accordion-item-content">
+
+				<p>Mrs. Reynolds anticipated Miss Darcy’s delight, when she should 
+				enter the room. “And this is always the way with him,” she added. 
+				“Whatever can give his sister any pleasure is sure to be done in a 
+				moment. There is nothing he would not do for her.”</p>
+
+				<p>The picture-gallery, and two or three of the principal bedrooms, 
+				were all that remained to be shown. In the former were many good 
+				paintings; but Elizabeth knew nothing of the art; and from such as 
+				had been already visible below, she had willingly turned to look at 
+				some drawings of Miss Darcy’s, in crayons, whose subjects were 
+				usually more interesting, and also more intelligible.</p>
+
+				<div class="content-buttons">
+					<a class="content-button first-button" 
+					   href="#">Make Tea</a>
+					<a class="content-button second-button" 
+					   href="#">Ring the Butler</a>
+				</div>
+			</div>
+		</li>
+
+		<li class="accordion-item">
+			<input class="accordion-item-input" 
+			       type="checkbox" 
+			       id="CB-item-3" />
+
+			<label class="accordion-item-label" 
+			       for="CB-item-3">
+				<div class="item-accordion-title">
+					<img class="item-notes">
+					<p>Man Woman Person Camera TV</p>
+				</div>
+			</label>
+
+			<div class="accordion-item-content">
+				<p>"Dr. Van Helsing, I have nothing to say. Your argument is 
+				complete, and if I were free to speak I should not hesitate a 
+				moment; but I am not my own master in the matter. I can only ask 
+				you to trust me. If I am refused, the responsibility does not 
+				rest with me." I thought it was now time to end the scene, which 
+				was becoming too comically grave, so I went towards the door, 
+				simply saying:--</p>
+
+				<p>"Come, my friends, we have work to do. Good-night."</p>
+
+				<div class="content-buttons">
+					<a class="content-button first-button" 
+					   href="#">Activate Time-Machine</a>
+					<a class="content-button second-button" 
+					   href="#">Water Plants</a>
+				</div>
+			</div>
+		</li>
+
+		<li class="accordion-item">
+			<input class="accordion-item-input" 
+			       type="checkbox" 
+			       id="CB-item-4n" />
+
+			<label class="accordion-item-label" 
+			       for="CB-item-4n">
+				<div class="item-accordion-title">
+					<img class="item-notes">
+					<p>
+					Sometimes a Title is Simply a Title
+					</p>
+				</div>
+			</label>
+
+			<div class="accordion-item-content">
+				<p>Mr. Collins had a compliment, and an allusion to throw in 
+				here, which were kindly smiled on by the mother and daughter.</p>
+
+				<p>Lady Catherine observed, after dinner, that Miss Bennet seemed 
+				out of spirits, and immediately accounting for it by herself, by 
+				supposing that she did not like to go home again so soon.</p>
+
+				<div class="content-buttons">
+					<a class="content-button first-button" 
+					   href="#">Search for Jodhpurs</a>
+					<a class="content-button second-button" 
+					   href="#">Listen Discerningly</a>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+	<p>
+		A light background color for the item title is key to the visual harmony 
+		and feel of sophistication.
+	</p>
+</body>
+</html>

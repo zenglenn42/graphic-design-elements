@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Grow-On-Hover-Figure</title>
+
+<style>
+	body {
+		font-family: sans-serif;
+	}
+
+	p {
+		line-height: 1.4;
+	}
+
+	figure {
+		width: fit-content;
+		height: auto;
+		overflow: hidden;	/* Limit expanding image boundary. */
+	}
+	
+	figure a {
+		text-decoration: none; 
+	}
+
+	figure a img {
+		display: block;         /* Removes odd margin between  */
+                                        /* caption and img.            */
+
+		filter: grayscale(.5);	/* Desaturate the color.       */
+
+		transition: filter .4s,transform .6s;
+	}
+
+	figure a img:hover {
+		transform: scale(1.1);	/* Enlarge image 10% on hover. */
+		filter: grayscale(0);	/* Full color on hover affords */
+                                        /* clickability. */
+	}
+
+	figcaption {
+		position: sticky;       /* Prevent expansion into caption. */
+		margin: 0;
+		padding: 0.4em 0.5em;
+
+		color: white;
+		background-color: #004f76;
+
+		font-size: smaller;
+		font-weight: normal;
+		line-height: 1.6;
+
+		text-align: center;
+		overflow-wrap: break-word;
+	}
+
+</style>
+</head>
+
+<body>
+<main>
+	<h3>expando-figure</h3>
+	<p>When you hover over this clickable image, it enlarges and the color fully saturates.</p>
+	<figure>
+		<a title="bill murray wiki" href="https://en.wikipedia.org/wiki/Bill_Murray">
+			<img loading="lazy" src="./bill-murray-260x260.png">
+		</a>	
+		<figcaption>I'm a fancy, expand-on-hover figure!</figcaption>
+	</figure>
+
+	<p>You can see this used to nice effect on the <a href="https://liberalarts.utexas.edu/">landing page</a> for the UT College of Liberal Arts.</p>
+
+	<p>One of the tricks for making this work in the context of a figure (as opposed to a densely packed photo-grid), is to give the figcaption element a sticky position.  Otherwise, I find the image pushing <em>into</em> the caption (as opposed to clipping) especially on Safari.</p>
+</main>
+</body>
+</html>
