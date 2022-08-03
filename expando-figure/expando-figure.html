@@ -15,6 +15,16 @@
 		line-height: 1.4;
 	}
 
+	main a {
+		text-decoration: none;
+		font-weight: 600;
+		color: #8a8a8a;
+	}
+
+	main a:hover {
+		color: #012b49;
+	}
+
 	figure {
 		width: fit-content;
 		height: auto;
@@ -73,7 +83,7 @@
 		<figcaption>I'm a fancy, expand-on-hover figure!</figcaption>
 	</figure>
 
-	<p>You can see this used to nice effect on the <a href="https://liberalarts.utexas.edu/">landing page</a> for the UT College of Liberal Arts.</p>
+	<p>You can see this used to nice effect on this <a title="UT College of Liberal Arts" href="https://liberalarts.utexas.edu/">landing page</a>.</p>
 
 	<p>One of the tricks for making this work in the context of a figure (as opposed to a densely packed photo-grid), is to give the figcaption element a sticky position.  Otherwise, I find the image pushing <em>into</em> the caption (as opposed to clipping) especially on Safari.</p>
 </main>
