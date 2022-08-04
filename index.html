@@ -35,6 +35,7 @@
 
 	div.intro p {
 		line-height: 1.4;
+		max-width: 70ch;
 	}
 
 	div.intro ul {
@@ -56,6 +57,20 @@
 		color: gray;
 		height: 0.5px;
 	} 
+
+	@supports (initial-letter: 2) or
+		(-webkit-initial-letter: 2) {
+
+		p.first-letter::first-letter {
+			font-family: "Helvetica", sans-serif;
+			font-weight: 600;
+			margin-right: 0.5em;
+			margin-left: 0.25em;
+			-webkit-initial-letter: 2;
+			initial-letter: 2;
+		}
+
+	}
 	</style>
 </head>
 <body>
@@ -63,25 +78,33 @@
 	<div class="intro">
 		<h1>Graphic Design Elements</h1>
 		<hr>
-		<p>I do some work for the Department of Psychology at the University of Texas.</p>
-		<p>My interests in mental health and web design intersect on behalf of my friends at the 
-			<a class="header" href="https://labs.la.utexas.edu/telch/">
-				Laboratory for the Study of Anxiety Disorders (LSAD)
-			</a> where they're migrating from WordPress to Grav at the moment even as they work to understand anxiety, its causes and effective treatment.
+		<p class="first-letter">
+			I do some work for the Department of Psychology at the University of Texas.
+			My interests in mental health and web design intersect on behalf of my friends at the 
+			<a class="header" href="https://labs.la.utexas.edu/telch/">Laboratory for the Study of Anxiety Disorders (LSAD)</a> 
+			where they're migrating from WordPress to Grav at the moment even as they work to understand anxiety, 
+			its causes and effective treatment.
 		</p>
 
-		<p>Parallel to the framework migration, I provide some timely, tactical help on the WP side 
-		with better responsivity and graphic design for their otherwise text-heavy, 
-		list-centric content.  Some of this may flow through to the new framework.
+		<p>
+			Parallel to the framework migration, I provide some timely, tactical help on the WP side 
+			with better responsivity and graphic design for their otherwise text-heavy, 
+			list-centric content.  Some of this may flow through to the new framework.
 		</p>
 
-		<p>While I'm not exclusively a front-end designer, I appreciate and enjoy the 
-		unique power of that domain so I'm up for the challenge.
+		<p>
+			While I'm not exclusively a front-end designer, I appreciate and enjoy the 
+			unique power of that domain so I'm up for the challenge.
 		</p>
 
-		<p>Below is a visual catalog of a few abstracted elements I roll out for the <a class="header" href="https://labs.la.utexas.edu/telch/">LSAD site</a>.</p>
+		<p>
+			Below is a visual catalog of a few abstracted elements I roll out for the 
+			<a class="header" href="https://labs.la.utexas.edu/telch/">LSAD site</a>.
+		</p>
 
-		<p>Click on the images below for a demo.</p>
+		<p>
+			Click on the images below for a demo.
+		</p>
 		<hr>
 	</div>
 </header>
